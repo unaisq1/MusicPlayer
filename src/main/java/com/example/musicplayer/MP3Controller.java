@@ -28,6 +28,8 @@ public class MP3Controller implements Initializable {
     private Pane pane;
     @FXML
     private Label songLabel;
+	@FXML
+	private Label volumeLabel;
     @FXML
     private Button playButton, pauseButton, resetButton, prevButton, nextButton;
     @FXML
@@ -69,8 +71,8 @@ public class MP3Controller implements Initializable {
                 songs.add(file);
             }
         }
-
-        media = new Media(songs.get(songNum).toURI().toString());
+		
+		media = new Media(songs.get(songNum).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
 
         songLabel.setText(songs.get(songNum).getName());
@@ -87,7 +89,8 @@ public class MP3Controller implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
 				
-				mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);			
+				mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+				volumeLabel.setText(Double.toString(volumeSlider.getValue()));			
 			}
 		});
 
