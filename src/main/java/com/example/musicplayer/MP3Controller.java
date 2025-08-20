@@ -56,9 +56,6 @@ public class MP3Controller implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle resources) 
     {
-        // TODO Auto-generated method stub
-        //throw new UnsupportedOperationException("Unimplemented method 'initialize'");
-
         songs = new ArrayList<File>();
 
         directory = new File("music");

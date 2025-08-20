@@ -21,7 +21,6 @@ public class MP3Application extends Application {
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() 
         {
-
 			@Override
 			public void handle(WindowEvent arg0) 
             {
