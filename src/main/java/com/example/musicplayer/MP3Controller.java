@@ -36,6 +36,8 @@ public class MP3Controller implements Initializable {
     private ComboBox<String> speedBox;
     @FXML
     private Slider volumeSlider;
+	@FXML
+	private Slider speedSlider;
     @FXML
     private ProgressBar progressBar;
 
@@ -91,6 +93,16 @@ public class MP3Controller implements Initializable {
 				
 				mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
 				volumeLabel.setText(Double.toString(volumeSlider.getValue()));			
+			}
+		});
+
+		speedSlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+				
+				mediaPlayer.setRate(speedSlider.getValue() * 0.01);
+				//volumeLabel.setText(Double.toString(volumeSlider.getValue()));			
 			}
 		});
 
@@ -203,10 +215,12 @@ public class MP3Controller implements Initializable {
     {
 		if (speedBox.getValue() == null)
 		{
+			speedSlider.setValue(100);
 			mediaPlayer.setRate(1);
 		}
 		else
 		{
+			speedSlider.setValue(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)));
 			mediaPlayer.setRate(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01); 
 		}   
 	}
