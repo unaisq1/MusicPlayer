@@ -247,20 +247,6 @@ public class MP3Controller implements Initializable {
 		}
     }
 
-    // public void changeSpeed(ActionEvent event) 
-    // {
-	// 	if (speedBox.getValue() == null)
-	// 	{
-	// 		speedSlider.setValue(100);
-	// 		mediaPlayer.setRate(1);
-	// 	}
-	// 	else
-	// 	{
-	// 		speedSlider.setValue(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)));
-	// 		mediaPlayer.setRate(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01); 
-	// 	}   
-	// }
-
     public void beginTimer() 
     {
 		timer = new Timer();
