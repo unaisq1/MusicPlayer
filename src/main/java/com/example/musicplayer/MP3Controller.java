@@ -12,10 +12,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -30,16 +32,20 @@ public class MP3Controller implements Initializable {
     private Label songLabel;
 	@FXML
 	private Label volumeLabel;
+	@FXML
+	private Label speedLabel;
     @FXML
     private Button playButton, pauseButton, resetButton, prevButton, nextButton;
-    @FXML
-    private ComboBox<String> speedBox;
+	@FXML
+	private TextField speedField;
     @FXML
     private Slider volumeSlider;
 	@FXML
 	private Slider speedSlider;
     @FXML
     private ProgressBar progressBar;
+	@FXML
+	private Label messageBox;
 
     private Media media;
     private MediaPlayer mediaPlayer;
@@ -50,6 +56,7 @@ public class MP3Controller implements Initializable {
     private ArrayList<File> songs;
 
     private int songNum;
+	private double currentSpeed = 100;
     private int[] speeds = {25,50,75,100,125,150,175,200};
 
     private Timer timer;
@@ -78,31 +85,60 @@ public class MP3Controller implements Initializable {
         mediaPlayer = new MediaPlayer(media);
 
         songLabel.setText(songs.get(songNum).getName());
-    
-		for (int i = 0; i < speeds.length; i++)
+
+		speedField.setPromptText(Double.toString(Math.floor(volumeSlider.getValue())) + "%");
+
+		speedField.setOnAction(new EventHandler<ActionEvent>() 
 		{
-			speedBox.getItems().add(Integer.toString(speeds[i])+"%");
-		}
+			@Override
+			public void handle(ActionEvent event)
+			{
+				try 
+				{
+					if ((Double.parseDouble(speedField.getText()) / 100) > 2 || (Double.parseDouble(speedField.getText()) / 100) < 0)
+					{
+						messageBox.setText("Enter a value between 0 and 200 (100 is normal speed).");
+						speedField.setText(null);
+					}
+					else
+					{
+						mediaPlayer.setRate(Double.parseDouble(speedField.getText()) / 100);
+						currentSpeed = Double.parseDouble(speedField.getText()) / 100;
+						speedSlider.setValue(mediaPlayer.getRate() * 100);
+					}
+				}
+				catch(NumberFormatException e)
+				{
+					messageBox.setText("Enter a number value between 0 and 200 (100 is normal speed).");
+					speedField.setText(null);
+				}
+				catch (Exception e)
+				{
+					messageBox.setText("Error");
+					speedField.setText(null);
+				}
+			}
+		});
 
-		speedBox.setOnAction(this::changeSpeed);
-
-		volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
-
+		volumeSlider.valueProperty().addListener(new ChangeListener<Number>() 
+		{
 			@Override
 			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
 				
 				mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
-				volumeLabel.setText(Double.toString(volumeSlider.getValue()));			
+				volumeLabel.setText(Double.toString(Math.floor(volumeSlider.getValue())) + "%");			
 			}
 		});
 
 		speedSlider.valueProperty().addListener(new ChangeListener<Number>() {
 
 			@Override
-			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-				
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) 
+			{	
 				mediaPlayer.setRate(speedSlider.getValue() * 0.01);
-				//volumeLabel.setText(Double.toString(volumeSlider.getValue()));			
+				currentSpeed = speedSlider.getValue() / 100;
+				speedLabel.setText(Double.toString(Math.floor(mediaPlayer.getRate() * 100)) + "%");
+				speedField.setPromptText(Double.toString(Math.floor(volumeSlider.getValue())) + "%");
 			}
 		});
 
@@ -113,7 +149,7 @@ public class MP3Controller implements Initializable {
     public void playMedia() 
     {
 		beginTimer();
-        changeSpeed(null);
+		mediaPlayer.setRate(currentSpeed);
 		mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);			
 		mediaPlayer.play();
     }
@@ -211,19 +247,19 @@ public class MP3Controller implements Initializable {
 		}
     }
 
-    public void changeSpeed(ActionEvent event) 
-    {
-		if (speedBox.getValue() == null)
-		{
-			speedSlider.setValue(100);
-			mediaPlayer.setRate(1);
-		}
-		else
-		{
-			speedSlider.setValue(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)));
-			mediaPlayer.setRate(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01); 
-		}   
-	}
+    // public void changeSpeed(ActionEvent event) 
+    // {
+	// 	if (speedBox.getValue() == null)
+	// 	{
+	// 		speedSlider.setValue(100);
+	// 		mediaPlayer.setRate(1);
+	// 	}
+	// 	else
+	// 	{
+	// 		speedSlider.setValue(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)));
+	// 		mediaPlayer.setRate(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01); 
+	// 	}   
+	// }
 
     public void beginTimer() 
     {
