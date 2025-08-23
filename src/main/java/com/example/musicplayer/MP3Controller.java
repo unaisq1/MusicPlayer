@@ -56,8 +56,7 @@ public class MP3Controller implements Initializable {
     private ArrayList<File> songs;
 
     private int songNum;
-	private double currentSpeed = 100;
-    private int[] speeds = {25,50,75,100,125,150,175,200};
+	private double currentSpeed = 1;
 
     private Timer timer;
     private TimerTask task;
@@ -80,6 +79,10 @@ public class MP3Controller implements Initializable {
                 songs.add(file);
             }
         }
+
+		String imagePath = getClass().getResource("/playSmall.png").toExternalForm();
+		//System.out.println(imagePath);
+		playButton.setStyle("-fx-background-image: url('" + imagePath + "'); " + "-fx-background-color: transparent; ");		
 		
 		media = new Media(songs.get(songNum).toURI().toString());
         mediaPlayer = new MediaPlayer(media);

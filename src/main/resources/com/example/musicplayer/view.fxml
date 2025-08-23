@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.musicplayer.MP3Controller">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="600.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.musicplayer.MP3Controller">
    <children>
       <Label fx:id="songLabel" alignment="CENTER" prefHeight="102.0" prefWidth="600.0" text="Song">
          <font>
@@ -16,11 +16,11 @@
          </font>
       </Label>
       <ProgressBar fx:id="progressBar" layoutY="111.0" prefHeight="18.0" prefWidth="600.0" progress="0.0" style="-fx-background-color: green;" />
-      <Button fx:id="playButton" layoutX="55.0" layoutY="147.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="44.0" prefWidth="97.0" text="Play" />
-      <Button fx:id="pauseButton" layoutX="153.0" layoutY="147.0" mnemonicParsing="false" onAction="#pauseMedia" prefHeight="44.0" prefWidth="97.0" text="Pause" />
-      <Button fx:id="resetButton" layoutX="251.0" layoutY="147.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="44.0" prefWidth="97.0" text="Reset" />
-      <Button fx:id="prevButton" layoutX="349.0" layoutY="147.0" mnemonicParsing="false" onAction="#prevMedia" prefHeight="44.0" prefWidth="97.0" text="Prev" />
-      <Button fx:id="nextButton" layoutX="447.0" layoutY="147.0" mnemonicParsing="false" onAction="#nextMedia" prefHeight="44.0" prefWidth="97.0" text="Next" />
+      <Button fx:id="playButton" layoutX="270.0" layoutY="138.0" mnemonicParsing="false" onAction="#playMedia" prefHeight="60.0" prefWidth="60.0" text="Play" />
+      <Button fx:id="pauseButton" layoutX="405.0" layoutY="138.0" mnemonicParsing="false" onAction="#pauseMedia" prefHeight="60.0" prefWidth="60.0" text="Pause" />
+      <Button fx:id="resetButton" layoutX="133.0" layoutY="138.0" mnemonicParsing="false" onAction="#resetMedia" prefHeight="60.0" prefWidth="60.0" text="Reset" />
+      <Button fx:id="prevButton" layoutX="201.0" layoutY="138.0" mnemonicParsing="false" onAction="#prevMedia" prefHeight="60.0" prefWidth="60.0" text="Prev" />
+      <Button fx:id="nextButton" layoutX="335.0" layoutY="138.0" mnemonicParsing="false" onAction="#nextMedia" prefHeight="60.0" prefWidth="60.0" text="Next" />
       <Slider fx:id="volumeSlider" layoutX="77.0" layoutY="204.0" value="100.0" />
       <Label layoutX="21.0" layoutY="203.0" text="Volume:" />
       <Label layoutX="325.0" layoutY="203.0" text="Speed:" />
