@@ -190,6 +190,7 @@ public class MP3Controller implements Initializable {
 
     public void prevMedia() 
     {
+		playPauseMedia();
 		if(songNum > 0)
 		{
 			songNum--;
@@ -231,6 +232,7 @@ public class MP3Controller implements Initializable {
 
     public void nextMedia() 
     {
+		playPauseMedia();
 		if(songNum < songs.size() - 1)
 		{
 			songNum++;
