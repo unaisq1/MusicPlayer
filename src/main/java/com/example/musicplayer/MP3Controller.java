@@ -62,7 +62,6 @@ public class MP3Controller implements Initializable {
     private TimerTask task;
     private boolean running;
     
-
     @Override
     public void initialize(URL arg0, ResourceBundle resources) 
     {
@@ -80,9 +79,8 @@ public class MP3Controller implements Initializable {
             }
         }
 
-		String imagePath = getClass().getResource("/playSmall.png").toExternalForm();
-		//System.out.println(imagePath);
-		playButton.setStyle("-fx-background-image: url('" + imagePath + "'); " + "-fx-background-color: transparent; ");		
+		String imagePath = getClass().getResource("/play.png").toExternalForm();
+		playButton.setStyle("-fx-background-image: url('" + imagePath + "'); " + "-fx-background-color: transparent; " + "-fx-text-fill: transparent;");		
 		
 		media = new Media(songs.get(songNum).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -162,6 +160,27 @@ public class MP3Controller implements Initializable {
 		cancelTimer();
 		mediaPlayer.pause();
     }
+
+	public void playPauseMedia()
+	{
+		if (running == true)
+		{
+			//pause song
+			pauseMedia();
+			//change button to the play image
+			String imagePath = getClass().getResource("/play.png").toExternalForm();
+			playButton.setStyle("-fx-background-image: url('" + imagePath + "'); " + "-fx-background-color: transparent; " + "-fx-text-fill: transparent;");		
+
+		}
+		else if (running == false)
+		{
+			//play song
+			playMedia();
+			//change button to the pause image
+			String imagePath = getClass().getResource("/pause.png").toExternalForm();
+			playButton.setStyle("-fx-background-image: url('" + imagePath + "'); " + "-fx-background-color: transparent; " + "-fx-text-fill: transparent;");		
+		}
+	}
 
     public void resetMedia() 
     {
